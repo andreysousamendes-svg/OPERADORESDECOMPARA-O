@@ -3,92 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Atividade - Comparadores</title>
+    <title>Atividade de Comparação</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
         table {
             border-collapse: collapse;
         }
         td {
-            border: 1px solid #ccc;
-            padding: 4px;
+            padding: 5px;
             text-align: center;
+            vertical-align: middle;
         }
         input[type="number"] {
-            width: 80px;
+            width: 100px;
+            padding: 3px;
+        }
+        button {
+            padding: 3px 10px;
+            cursor: pointer;
+        }
+        .operador {
+            font-weight: bold;
+            font-size: 16px;
+            padding: 0 10px;
         }
     </style>
 </head>
 <body>
 
     <table>
-        <!-- Linha do Igual (==) -->
+        <!-- Comparação 1: == -->
         <tr>
             <td><input type="number" id="v1_eq"></td>
-            <td>==</td>
+            <td class="operador">==</td>
             <td><input type="number" id="v2_eq"></td>
             <td><button onclick="comparar('eq')">Comparar</button></td>
         </tr>
-        <!-- Linha do Diferente (!=) -->
+        <!-- Comparação 2: != -->
         <tr>
             <td><input type="number" id="v1_dif"></td>
-            <td>!=</td>
+            <td class="operador">!=</td>
             <td><input type="number" id="v2_dif"></td>
             <td><button onclick="comparar('dif')">Comparar</button></td>
         </tr>
-        <!-- Linha do Maior (>) -->
+        <!-- Comparação 3: > -->
         <tr>
-            <td><input type="number" id="v1_mai"></td>
-            <td>&gt;</td>
-            <td><input type="number" id="v2_mai"></td>
-            <td><button onclick="comparar('mai')">Comparar</button></td>
+            <td><input type="number" id="v1_maior"></td>
+            <td class="operador">&gt;</td>
+            <td><input type="number" id="v2_maior"></td>
+            <td><button onclick="comparar('maior')">Comparar</button></td>
         </tr>
-        <!-- Linha do Menor (<) -->
+        <!-- Comparação 4: >= -->
         <tr>
-            <td><input type="number" id="v1_men"></td>
-            <td>&lt;</td>
-            <td><input type="number" id="v2_men"></td>
-            <td><button onclick="comparar('men')">Comparar</button></td>
+            <td><input type="number" id="v1_maiorEq"></td>
+            <td class="operador">&gt;=</td>
+            <td><input type="number" id="v2_maiorEq"></td>
+            <td><button onclick="comparar('maiorEq')">Comparar</button></td>
         </tr>
-        <!-- Linha do Maior ou Igual (>=) -->
+        <!-- Comparação 5: < -->
         <tr>
-            <td><input type="number" id="v1_maieq"></td>
-            <td>&gt;=</td>
-            <td><input type="number" id="v2_maieq"></td>
-            <td><button onclick="comparar('maieq')">Comparar</button></td>
+            <td><input type="number" id="v1_menor"></td>
+            <td class="operador">&lt;</td>
+            <td><input type="number" id="v2_menor"></td>
+            <td><button onclick="comparar('menor')">Comparar</button></td>
         </tr>
-        <!-- Linha do Menor ou Igual (<=) -->
+        <!-- Comparação 6: <= -->
         <tr>
-            <td><input type="number" id="v1_meneq"></td>
-            <td>&lt;=</td>
-            <td><input type="number" id="v2_meneq"></td>
-            <td><button onclick="comparar('meneq')">Comparar</button></td>
+            <td><input type="number" id="v1_menorEq"></td>
+            <td class="operador">&lt;=</td>
+            <td><input type="number" id="v2_menorEq"></td>
+            <td><button onclick="comparar('menorEq')">Comparar</button></td>
         </tr>
     </table>
 
     <script>
-        function comparar(operacao) {
-            let n1 = parseFloat(document.getElementById('v1_' + operacao).value);
-            let n2 = parseFloat(document.getElementById('v2_' + operacao).value);
-            
-            // Validação simples caso o usuário deixe em branco
-            if (isNaN(n1) || !isNaN(n2) === false) {
-                alert("Por favor, digite ambos os valores.");
-                return;
+        function comparar(tipo) {
+            // Captura os valores de cada linha baseado no tipo de operação
+            let valor1 = Number(document.getElementById('v1_' + tipo).value);
+            let valor2 = Number(document.getElementById('v2_' + tipo).value);
+            let resultado = false;
+
+            // Realiza o teste lógico correspondente
+            switch(tipo) {
+                case 'eq':
+                    resultado = (valor1 == valor2);
+                    break;
+                case 'dif':
+                    resultado = (valor1 != valor2);
+                    break;
+                case 'maior':
+                    resultado = (valor1 > valor2);
+                    break;
+                case 'maiorEq':
+                    resultado = (valor1 >= valor2);
+                    break;
+                case 'menor':
+                    resultado = (valor1 < valor2);
+                    break;
+                case 'menorEq':
+                    resultado = (valor1 <= valor2);
+                    break;
             }
 
-            let resultado;
-
-            switch(operacao) {
-                case 'eq':    resultado = (n1 == n2); break;
-                case 'dif':   resultado = (n1 != n2); break;
-                case 'mai':   resultado = (n1 > n2); break;
-                case 'men':   resultado = (n1 < n2); break;
-                case 'maieq': resultado = (n1 >= n2); break;
-                case 'meneq': resultado = (n1 <= n2); break;
+            // Exibe o alert em letras maiúsculas conforme a especificação
+            if (resultado) {
+                alert("VERDADEIRO");
+            } else {
+                alert("FALSO");
             }
-
-            // Exibe VERDAEIRO ou FALSO em caixa de alert
-            alert(resultado ? "VERDADEIRO" : "FALSO");
         }
     </script>
 
